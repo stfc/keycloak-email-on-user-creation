@@ -42,11 +42,10 @@ public class UserCreationEmailEventListenerProvider implements EventListenerProv
             sbtxt.append("Email from IdP: ").append(event.getDetails().get("email")).append("\n");
 
             StringBuilder sbhtml = new StringBuilder();
-            sbhtml.append("<html><body>");
             sbhtml.append("<p>A new user has registered for SCARF access via Keycloak</p>");
-            sbtxt.append("<p>User UUID: ").append(event.getUserId()).append("</p>");
-            sbtxt.append("<p>IP Address: ").append(event.getIpAddress()).append("</p>");
-            sbtxt.append("<p>Email from IdP: ").append(event.getDetails().get("email")).append("</p></body></html>");
+            sbhtml.append("<p>User UUID: ").append(event.getUserId()).append("</p>");
+            sbhtml.append("<p>IP Address: ").append(event.getIpAddress()).append("</p>");
+            sbhtml.append("<p>Email from IdP: ").append(event.getDetails().get("email")).append("</p>");
             try {
                 senderProvider.send(session.getContext().getRealm().getSmtpConfig(), emailAddress, "New user on Keycloak", sbtxt.toString(), sbhtml.toString());
             } catch (EmailException e) {
